@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
-__author__ = 'Denis Ivanets (denself@gmail.com)'
 from django.conf import settings
 
+__author__ = 'Denis Ivanets (denself@gmail.com)'
 
 settings.configure(
-    DEBUG=True,
-    SECRET_KEY='this_is_a_secret_key',
+    DEBUG=os.environ.get('DEBUG', 'on') == 'on',
+    SECRET_KEY=os.environ.get('SECRET_KEY', 'this_is_a_secret_key'),
     ROOT_URLCONF=__name__,
+    ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS', 'localhost').split(','),
     MIDDLEWARE_CLASSES=(
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
